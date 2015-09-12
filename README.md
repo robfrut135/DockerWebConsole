@@ -33,20 +33,14 @@ do:
 
 ### Demo on Win32
 
-*** 1- Login ***
-[image]
+***1- Login***
 
-*** 2- Load main page ***
-[image]
+***2- Load main page***
 
-*** 3- Main page ***
-[image]
+***3- Main page***
 
-*** 4- Docker command ***
-[image]
+***4- Docker command***
 
-*** 5- Container console web ***
-[image]
+***5- Container console web***
 
-*** 6- Docker inspect ***
-[image]
+***6- Docker inspect***
