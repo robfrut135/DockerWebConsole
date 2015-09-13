@@ -15,45 +15,44 @@ ToDo:
 - login
 - users control based on Labels
 
+### Config
+
+In config/config.go set your config options
+
+    var defaultConfig = Config{
+      Addr: flag.Bool("addr", false, "find open address and print to final-port.txt"),
+      Host: "localhost",
+      Ssh: &myssh.MakeConfig{
+        User:     "root",
+        Password: "XXXXXXX",
+        Server:   "localhost",
+        Port:     "22",
+      },
+      TextPath:  "../resources/text/",
+      Templates: template.Must(template.ParseFiles("../resources/web/index.html", "../resources/web/contact.html", "../resources/web/login.html")),
+      ValidPath: regexp.MustCompile("^/(console|contact|login)/([a-zA-Z0-9]+)$"),
+      GottyPath: "/home/roberto/GoLangWorkspace/bin/",
+    }
+
 ### Build
 
-    #cd [your path]/src/runtime
-    #go build -o dockerwebconsole
+    #cd $GOPATH/src/runtime
+    #go build
 
 ### Run
 
 before:
   - running docker service
   - enable ssh to host
-  - gotty installed in your host and in your PATH
+  - gotty installed in your host
 
 do:
 
-    #cd [your path]/src/runtime
-    #dockerwebconsole
+    #cd $GOPATH/src/dockerwebconsole/runtime
+    #./runtime
 
-### Demo on Win32
+### Demo on Fedora21
 
-***1- Login***
+Video demostration
 
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
-
-***2- Load main page***
-
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
-
-***3- Main page***
-
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
-
-***4- Docker command***
-
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
-
-***5- Container console web***
-
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
-
-***6- Docker inspect***
-
-![](https://github.com/robfrut135/DockerWebConsole/blob/master/images/professortocat.png)
+[![Live demo](https://raw.githubusercontent.com/robfrut135/DockerWebConsole/master/media/default.png)](https://drive.google.com/file/d/0BymCGWR0IjzkbzBwLWpoMGtjYjA/view?usp=sharing)
