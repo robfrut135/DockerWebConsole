@@ -122,26 +122,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			      <ul id="tiles">
 			        {{ range $key, $container := .Containers }}
 						<!-- These are our grid blocks -->
-				        <li title="Web Console">
-				        	<img onClick="Service.activeGotty({{ $container.Id }})" src="/resources/images/docker.png" width="200" height="200">
+				        <li>
 				        	<div class="post-info">
-				        		<div class="post-basic-info">
+				        		<div class="post-basic-info" title="Web Console" onClick="Service.activeGotty({{ $container.Id }})">
+											<img src="/resources/images/docker.png" width="200" height="200">
 					        		<h3><a href="#">{{ $key }}</a></h3>
 					        		<span><a href="#"><label> </label>{{ $container.Image }}</a></span>
 					        		<p>{{ $container.Names }}</p>
-									<p class="container-status">
-										<span><a href="#" onClick="Service.logs({{ $container.Id }})">{{ $container.Status }}</a></span>
-									</p>
+											<p class="container-status">
+												<span>{{ $container.Status }} - <a title="Show container logs" href="#" onClick="Service.logs({{ $container.Id }})">[ View log ]</a></span>
+											</p>
 				        		</div>
 				        		<div class="post-info-rate-share">
-				        			<div class="rateit">
-				        				<span> </span>
-				        			</div>
-				        			<div class="post-share" onClick="Service.command('inspect ' + {{ $container.Id }})">
+				        			<div title="Inspect container" class="post-share" onClick="Service.command('inspect ' + {{ $container.Id }})">
 				        				<span></span>
 				        			</div>
 				        			<div class="clear">
-									</div>
+											</div>
 				        		</div>
 				        	</div>
 				        </li>
@@ -204,7 +201,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		      applyLayout();
 
 		      // Capture scroll event.
-		      $window.bind('scroll.wookmark', onScroll);
+		      //$window.bind('scroll.wookmark', onScroll);
 		    })(jQuery);
 		  </script>
 		<!----//wookmark-scripts---->

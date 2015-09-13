@@ -197,7 +197,7 @@ a.boxclose{
 /*--//userinfo--*/
 /*----start-post-grids----*/
 .post-share span{
-	background:url(../images/facebook.png) no-repeat 0px 0px;
+	background:url(../images/inspect.png) no-repeat 0px 0px;
 	height:26px;
 	width:26px;
 	display:inline-block;
@@ -207,7 +207,7 @@ a.boxclose{
 	-o-border-radius:30em;
 }
 .post-share span:hover{
-	background:url(../images/facebookh.png) no-repeat 0px 0px;
+	background:url(../images/inspecth.png) no-repeat 0px 0px;
 }
 .rateit span{
 	height:18px;

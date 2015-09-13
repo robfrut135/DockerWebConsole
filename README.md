@@ -21,11 +21,11 @@ In config/config.go set your config options
 
     var defaultConfig = Config{
       Addr: flag.Bool("addr", false, "find open address and print to final-port.txt"),
-      Host: "localhost",
+      Host: "NAME-HOST",
       Ssh: &myssh.MakeConfig{
-        User:     "root",
-        Password: "XXXXXXX",
-        Server:   "localhost",
+        User:     "YOUR_USER",
+        Password: "YOUR-PASSWORD",
+        Server:   "IP-HOST",
         Port:     "22",
       },
       TextPath:  "../resources/text/",
