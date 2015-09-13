@@ -60,12 +60,12 @@ func PrintOutput(outs []byte) {
 
 func (p *Page) save() error {
 	filename := p.Title + ".txt"
-	return ioutil.WriteFile(defaultConfig.Text_path+filename, p.Body, 0600)
+	return ioutil.WriteFile(defaultConfig.TextPath+filename, p.Body, 0600)
 }
 
 func LoadPage(title string) (*Page, error) {
 	filename := title + ".txt"
-	body, err := ioutil.ReadFile(defaultConfig.Text_path + filename)
+	body, err := ioutil.ReadFile(defaultConfig.TextPath + filename)
 	if err != nil {
 		return nil, err
 	}

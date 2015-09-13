@@ -13,6 +13,7 @@ import (
 
 var defaultConfig = config.GetConfig()
 
+// HomeHandler render the main page with read docker containers
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	p := &core.Page{}
@@ -75,13 +76,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "index", p)
 }
 
+// ConsoleHandler run container console for user
 func ConsoleHandler(w http.ResponseWriter, r *http.Request, title string) {
 
 	if title == "intro" {
 		c := make(chan bool)
 		go func() {
 			id := r.FormValue("id")
-			cmd := "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
+			cmd := defaultConfig.GottyPath + "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
 			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out)
@@ -94,7 +96,7 @@ func ConsoleHandler(w http.ResponseWriter, r *http.Request, title string) {
 		c := make(chan bool)
 		go func() {
 			id := r.FormValue("id")
-			cmd := "gotty --once -p 8888 docker logs -f " + id
+			cmd := defaultConfig.GottyPath + "gotty --once -p 8888 docker logs -f " + id
 			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
@@ -106,7 +108,7 @@ func ConsoleHandler(w http.ResponseWriter, r *http.Request, title string) {
 	} else if title == "cmd" {
 		c := make(chan bool)
 		go func() {
-			cmd := "gotty --once -w -p 7777 docker " + r.FormValue("command")
+			cmd := defaultConfig.GottyPath + "gotty --once -w -p 7777 docker " + r.FormValue("command")
 			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
@@ -118,16 +120,19 @@ func ConsoleHandler(w http.ResponseWriter, r *http.Request, title string) {
 	}
 }
 
+// ContactHandlerNil render a template with contact form and location
 func ContactHandlerNil(w http.ResponseWriter, r *http.Request) {
 
 	renderTemplate(w, "contact", &core.Page{})
 }
 
+//LoginHandlerNil render a template with login page
 func LoginHandlerNil(w http.ResponseWriter, r *http.Request) {
 
 	renderTemplate(w, "login", &core.Page{})
 }
 
+//ContactHandler receive a request contact
 func ContactHandler(w http.ResponseWriter, r *http.Request, title string) {
 	if title == "send" {
 		/*
@@ -140,6 +145,7 @@ func ContactHandler(w http.ResponseWriter, r *http.Request, title string) {
 	}
 }
 
+//LoginHandler manage a login request
 func LoginHandler(w http.ResponseWriter, r *http.Request, title string) {
 	if title == "send" {
 		/*
@@ -166,6 +172,7 @@ func renderTemplate(w http.ResponseWriter, tmpl string, p *core.Page) {
 	}
 }
 
+//MakeHandler create a handler for controller
 func MakeHandler(fn func(http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		m := defaultConfig.ValidPath.FindStringSubmatch(r.URL.Path)

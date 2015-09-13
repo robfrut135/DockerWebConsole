@@ -7,15 +7,17 @@ import (
 	"regexp"
 )
 
+//Config parameter for docker web console
 type Config struct {
-	Addr           *bool
-	Host           string
-	Ssh            *myssh.MakeConfig
-	Resources_path string
-	Templates_path string
-	Text_path      string
-	Templates      *template.Template
-	ValidPath      *regexp.Regexp
+	Addr          *bool
+	Host          string
+	Ssh           *myssh.MakeConfig
+	ResourcesPath string
+	TemplatesPath string
+	TextPath      string
+	Templates     *template.Template
+	ValidPath     *regexp.Regexp
+	GottyPath     string
 }
 
 var defaultConfig = Config{
@@ -23,17 +25,17 @@ var defaultConfig = Config{
 	Host: "localhost",
 	Ssh: &myssh.MakeConfig{
 		User:     "root",
-		Password: "Robfrut.512",
+		Password: "XXXXXXX",
 		Server:   "localhost",
 		Port:     "22",
 	},
-	Resources_path: "../resources/",
-	Templates_path: "../resources/templates/",
-	Text_path:      "../resources/text/",
-	Templates:      template.Must(template.ParseFiles("../resources/web/index.html", "../resources/web/contact.html", "../resources/web/login.html")),
-	ValidPath:      regexp.MustCompile("^/(console|contact|login)/([a-zA-Z0-9]+)$"),
+	TextPath:  "../resources/text/",
+	Templates: template.Must(template.ParseFiles("../resources/web/index.html", "../resources/web/contact.html", "../resources/web/login.html")),
+	ValidPath: regexp.MustCompile("^/(console|contact|login)/([a-zA-Z0-9]+)$"),
+	GottyPath: "/home/roberto/GoLangWorkspace/bin/",
 }
 
+//GetConfig return configuration by default
 func GetConfig() Config {
 	return defaultConfig
 }
