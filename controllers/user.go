@@ -163,12 +163,12 @@ func sendVerification(email, u string, domainname string) bool {
 	host := "smtp.gmail.com"
 	port := 587
 	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", "acmecorp@gmail.com", "ACME Corporation")
+	msg.SetAddressHeader("From", "robfrut@gmail.com", "Docker Web Console")
 	msg.SetHeader("To", email)
 	msg.SetHeader("Subject", "Account Verification for ACME Corporation")
 	msg.SetBody("text/html", "To verify your account, please click on the link: <a href=\""+link+
 		"\">"+link+"</a><br><br>Best Regards,<br>ACME Corporation")
-	m := gomail.NewMailer(host, "youraccount@gmail.com", "YourPassword", port)
+	m := gomail.NewMailer(host, "robfrut@gmail.com", "135Transceptor135", port)
 	if err := m.Send(msg); err != nil {
 		return false
 	}
@@ -422,12 +422,12 @@ func sendRequestReset(email, u string, domainname string) bool {
 	host := "smtp.gmail.com"
 	port := 587
 	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", "acmecorp@gmail.com", "ACME Corporation")
+	msg.SetAddressHeader("From", "robfrut@gmail.com", "Docker Web Console")
 	msg.SetHeader("To", email)
 	msg.SetHeader("Subject", "Request Password Reset for ACME Corporation")
 	msg.SetBody("text/html", "To reset your password, please click on the link: <a href=\""+link+
 		"\">"+link+"</a><br><br>Best Regards,<br>ACME Corporation")
-	m := gomail.NewMailer(host, "youraccount@gmail.com", "YourPassword", port)
+	m := gomail.NewMailer(host, "robfrut@gmail.com", "135Transceptor135", port)
 	if err := m.Send(msg); err != nil {
 		return false
 	}
