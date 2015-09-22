@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dockerwebconsole/controllers"
 	_ "dockerwebconsole/models"
 	_ "dockerwebconsole/routers"
 	"fmt"
@@ -25,5 +26,7 @@ func init() {
 func main() {
 	beego.SessionOn = true
 	beego.InsertFilter("/appadmin/*", beego.BeforeRouter, auth.Basic("youradminname", "YourAdminPassword"))
+	beego.InsertFilter("/hosts", beego.BeforeRouter, controllers.FilterLogin)
+	beego.InsertFilter("/hosts/*", beego.BeforeRouter, controllers.FilterLogin)
 	beego.Run()
 }

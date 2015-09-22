@@ -1,12 +1,28 @@
 package controllers
 
 import (
+	"dockerwebconsole/config"
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/context"
 )
 
 type MainController struct {
 	beego.Controller
+	ConfigData config.Config
+}
+
+var FilterLogin = func(ctx *context.Context) {
+
+	//******** This page requires login
+	sess := ctx.Input.Session("acme")
+	if sess == nil {
+		ctx.Redirect(302, "/user/login/main")
+		return
+	}
+	m := sess.(map[string]interface{})
+	fmt.Println("username is", m["username"])
+	fmt.Println("logged in at", m["timestamp"])
 }
 
 func (this *MainController) activeContent(view string) {

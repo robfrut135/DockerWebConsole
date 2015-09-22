@@ -14,9 +14,9 @@
 
   			<form id="user-data" class="form" method="post">
           {{if .Errors.email}}{{.Errors.email}}{{end}}
-  				<input id="email" type="text" placeholder="Your email">
+  				<input id="email" name="email" type="text" placeholder="Your email">
           {{if .Errors.password}}{{.Errors.password}}{{end}}
-  				<input id="password" type="password" placeholder="Your password">
+  				<input id="password" name="password" type="password" placeholder="Your password">
 
   				<button type="submit" id="login-button">Login</button>
 

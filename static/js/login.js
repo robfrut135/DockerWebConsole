@@ -1,9 +1,9 @@
  $("#login-button").click(function(event){
 
-	$("form").submit();
+	$("#user-data").submit();
 
 	event.preventDefault();
 
-	$('form').fadeOut(500);
+	$('#"user-data').fadeOut(500);
 	$('.wrapper').addClass('form-success');
 });

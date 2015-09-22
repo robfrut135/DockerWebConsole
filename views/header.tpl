@@ -78,9 +78,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										<div class="menu_box_list">
 											<ul>
 												<li><a href="/home"><span>home</span></a></li>
-												<li><a href="/about"><span>About</span></a></li>
 												<li><a href="/hosts"><span>Hosts</span></a></li>
 												<li><a href="/notice"><span>Blog</span></a></li>
+												<li><a href="/about"><span>About</span></a></li>
 												<div class="clear"> </div>
 											</ul>
 										</div>

@@ -46,7 +46,7 @@
 							    </div>
 								<div class="clear"></div>
 							 </div>
-							 	<form method="post" action="/contact/send">
+							 	<form method="post" action="/about">
 							          <div class="contact-form">
 										<div class="contact-to">
 					                     	<input type="text" class="text" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name...';}">
@@ -61,4 +61,3 @@
 						               </div>
 						           </form>
 								</div>
-			

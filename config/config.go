@@ -7,10 +7,15 @@ import (
 
 //Config parameter for docker web console
 type Config struct {
-	Addr      *bool
-	Host      string
-	Ssh       *myssh.MakeConfig
-	GottyPath string
+	Addr           *bool
+	Host           string
+	Ssh            *myssh.MakeConfig
+	MailHost       string
+	MailPort       int
+	MailFrom       string
+	MailMailerUser string
+	MailMailerPass string
+	GottyPath      string
 }
 
 var defaultConfig = Config{
@@ -22,7 +27,12 @@ var defaultConfig = Config{
 		Server:   "localhost",
 		Port:     "22",
 	},
-	GottyPath: "/home/roberto/GoLangWorkspace/bin/",
+	MailHost:       "smtp.gmail.com",
+	MailPort:       587,
+	MailFrom:       "robfrut@gmail.com",
+	MailMailerUser: "robfrut@gmail.com",
+	MailMailerPass: "135Transceptor135",
+	GottyPath:      "/home/roberto/GoLangWorkspace/bin/",
 }
 
 //GetConfig return configuration by default

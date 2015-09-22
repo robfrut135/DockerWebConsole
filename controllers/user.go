@@ -25,6 +25,7 @@ func (this *MainController) Login() {
 	back := strings.Replace(this.Ctx.Input.Param(":back"), ">", "/", -1) // allow for deeper URL such as l1/l2/l3 represented by l1>l2>l3
 	fmt.Println("back is", back)
 	if this.Ctx.Input.Method() == "POST" {
+		fmt.Println("es un POST")
 		flash := beego.NewFlash()
 		email := this.GetString("email")
 		password := this.GetString("password")
@@ -147,7 +148,7 @@ func (this *MainController) Register() {
 		}
 
 		domainname := this.Data["domainname"]
-		if !sendVerification(u.Email, key.String(), domainname.(string)) {
+		if !this.sendVerification(u.Email, key.String(), domainname.(string)) {
 			flash.Error("Unable to send verification email")
 			flash.Store(&this.Controller)
 			return
@@ -156,23 +157,6 @@ func (this *MainController) Register() {
 		flash.Store(&this.Controller)
 		this.Redirect("/notice", 302)
 	}
-}
-
-func sendVerification(email, u string, domainname string) bool {
-	link := "http://" + domainname + "/user/verify/" + u
-	host := "smtp.gmail.com"
-	port := 587
-	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", "robfrut@gmail.com", "Docker Web Console")
-	msg.SetHeader("To", email)
-	msg.SetHeader("Subject", "Account Verification for ACME Corporation")
-	msg.SetBody("text/html", "To verify your account, please click on the link: <a href=\""+link+
-		"\">"+link+"</a><br><br>Best Regards,<br>ACME Corporation")
-	m := gomail.NewMailer(host, "robfrut@gmail.com", "135Transceptor135", port)
-	if err := m.Send(msg); err != nil {
-		return false
-	}
-	return true
 }
 
 func (this *MainController) Verify() {
@@ -410,24 +394,41 @@ func (this *MainController) Forgot() {
 			return
 		}
 		domainname := this.Data["domainname"]
-		sendRequestReset(email, u.String(), domainname.(string))
+		this.sendRequestReset(email, u.String(), domainname.(string))
 		flash.Notice("You've been sent a reset password link. You must check your email.")
 		flash.Store(&this.Controller)
 		this.Redirect("/notice", 302)
 	}
 }
 
-func sendRequestReset(email, u string, domainname string) bool {
-	link := "http://" + domainname + "/user/reset/" + u
-	host := "smtp.gmail.com"
-	port := 587
+func (this *MainController) sendVerification(email, u string, domainname string) bool {
+	link := "http://" + domainname + "/user/verify/" + u
+	host := this.ConfigData.MailHost
+	port := this.ConfigData.MailPort
 	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", "robfrut@gmail.com", "Docker Web Console")
+	msg.SetAddressHeader("From", this.ConfigData.MailFrom, "Docker Web Console")
 	msg.SetHeader("To", email)
-	msg.SetHeader("Subject", "Request Password Reset for ACME Corporation")
+	msg.SetHeader("Subject", "Account Verification for DockerWebConsole")
+	msg.SetBody("text/html", "To verify your account, please click on the link: <a href=\""+link+
+		"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
+	m := gomail.NewMailer(host, this.ConfigData.MailMailerUser, this.ConfigData.MailMailerPass, port)
+	if err := m.Send(msg); err != nil {
+		return false
+	}
+	return true
+}
+
+func (this *MainController) sendRequestReset(email, u string, domainname string) bool {
+	link := "http://" + domainname + "/user/reset/" + u
+	host := this.ConfigData.MailHost
+	port := this.ConfigData.MailPort
+	msg := gomail.NewMessage()
+	msg.SetAddressHeader("From", this.ConfigData.MailFrom, "Docker Web Console")
+	msg.SetHeader("To", email)
+	msg.SetHeader("Subject", "Request Password Reset for DockerWebConsole")
 	msg.SetBody("text/html", "To reset your password, please click on the link: <a href=\""+link+
-		"\">"+link+"</a><br><br>Best Regards,<br>ACME Corporation")
-	m := gomail.NewMailer(host, "robfrut@gmail.com", "135Transceptor135", port)
+		"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
+	m := gomail.NewMailer(host, this.ConfigData.MailMailerUser, this.ConfigData.MailMailerPass, port)
 	if err := m.Send(msg); err != nil {
 		return false
 	}

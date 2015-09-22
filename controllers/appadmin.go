@@ -87,6 +87,10 @@ func (this *AdminController) Index() {
 
 	const pagesize = 10
 	parms := this.Ctx.Input.Param(":parms")
+	if parms == "" {
+		parms = "id!0!id__gte,0"
+	}
+
 	this.Data["parms"] = parms
 	str := strings.Split(parms, "!")
 	fmt.Println("parms is", str)

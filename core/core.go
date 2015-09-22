@@ -1,7 +1,6 @@
 package core
 
 import (
-	"dockerwebconsole/config"
 	"fmt"
 	"os"
 	"os/exec"
@@ -32,8 +31,6 @@ type Container struct {
 	Status     string
 	HostConfig HostConfig
 }
-
-var defaultConfig = config.GetConfig()
 
 func PrintCommand(cmd *exec.Cmd) {
 	fmt.Printf("==> Executing: %s\n", strings.Join(cmd.Args, " "))

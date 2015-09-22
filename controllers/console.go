@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"dockerwebconsole/config"
 	"dockerwebconsole/core"
 	"encoding/json"
 	"fmt"
@@ -11,21 +10,9 @@ import (
 	"strings"
 )
 
-var defaultConfig = config.GetConfig()
-
 // HomeHandler render the main page with read docker containers
 func (this *MainController) HomeHandler() {
 	this.activeContent("index")
-
-	//******** This page requires login
-	sess := this.GetSession("acme")
-	if sess == nil {
-		this.Redirect("/user/login/main", 302)
-		return
-	}
-	m := sess.(map[string]interface{})
-	fmt.Println("username is", m["username"])
-	fmt.Println("logged in at", m["timestamp"])
 
 	containers := make(map[string]core.Container)
 
@@ -34,7 +21,7 @@ func (this *MainController) HomeHandler() {
 	*/
 
 	/* Option A */
-	url := "http://" + defaultConfig.Host + ":4243/containers/json"
+	url := "http://" + this.ConfigData.Host + ":4243/containers/json"
 
 	response, err := http.Get(url)
 
@@ -85,8 +72,8 @@ func (this *MainController) ConsoleHandler() {
 		c := make(chan bool)
 		go func() {
 			id := this.GetString("id")
-			cmd := defaultConfig.GottyPath + "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
-			out, err := defaultConfig.Ssh.Run(cmd)
+			cmd := this.ConfigData.GottyPath + "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
+			out, err := this.ConfigData.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out)
 			}
@@ -98,8 +85,8 @@ func (this *MainController) ConsoleHandler() {
 		c := make(chan bool)
 		go func() {
 			id := this.GetString("id")
-			cmd := defaultConfig.GottyPath + "gotty --once -p 8888 docker logs -f " + id
-			out, err := defaultConfig.Ssh.Run(cmd)
+			cmd := this.ConfigData.GottyPath + "gotty --once -p 8888 docker logs -f " + id
+			out, err := this.ConfigData.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
 			}
@@ -110,8 +97,8 @@ func (this *MainController) ConsoleHandler() {
 	} else if action == "cmd" {
 		c := make(chan bool)
 		go func() {
-			cmd := defaultConfig.GottyPath + "gotty --once -w -p 7777 docker " + this.GetString("command")
-			out, err := defaultConfig.Ssh.Run(cmd)
+			cmd := this.ConfigData.GottyPath + "gotty --once -w -p 7777 docker " + this.GetString("command")
+			out, err := this.ConfigData.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
 			}
@@ -123,14 +110,12 @@ func (this *MainController) ConsoleHandler() {
 }
 
 //ContactHandler receive a request contact
-func ContactHandler(w http.ResponseWriter, r *http.Request, title string) {
-	if title == "send" {
-		/*
-			TODO: send data
-		*/
+func (this *MainController) ContactHandler() {
 
-		http.Redirect(w, r, "/main", 301)
-	} else {
-		http.NotFound(w, r)
-	}
+	/*
+		TODO: send data
+	*/
+
+	this.Redirect("/home", 301)
+
 }
