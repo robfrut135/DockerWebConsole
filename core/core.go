@@ -14,9 +14,6 @@ type Port struct {
 	Type        string
 }
 
-type Label struct {
-}
-
 type HostConfig struct {
 }
 
@@ -27,7 +24,7 @@ type Container struct {
 	Command    string
 	Created    int
 	Ports      []Port
-	Labels     Label
+	Labels     map[string]string
 	Status     string
 	HostConfig HostConfig
 }

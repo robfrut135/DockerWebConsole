@@ -16,6 +16,8 @@ func (this *MainController) HomeHandler() {
 
 	containers := make(map[string]core.Container)
 
+	pattern := this.GetString("pattern")
+
 	/*
 		To have: -H unix:	///var/run/docker.sock -H tcp://0.0.0.0:4243
 	*/
@@ -56,7 +58,16 @@ func (this *MainController) HomeHandler() {
 				log.Fatal(err)
 			}
 
-			containers[m.Id[0:10]] = m
+			if pattern != "" {
+				for _, p := range m.Labels {
+					if strings.Contains(p, pattern) {
+						containers[m.Id[0:10]] = m
+						break
+					}
+				}
+			} else {
+				containers[m.Id[0:10]] = m
+			}
 		}
 	}
 
