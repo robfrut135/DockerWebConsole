@@ -1,6 +1,6 @@
 ## Docker WebConsole
 
-### Administration of containers from ui web
+### Administration of containers from a web interface
 
 Uses
 - beego framweork
