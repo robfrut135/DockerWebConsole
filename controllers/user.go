@@ -5,11 +5,11 @@ import (
 	pk "dockerwebconsole/utilities/pbkdf2"
 	"encoding/hex"
 	"fmt"
-	"github.com/alexcesaro/mail/gomail"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego/validation"
 	"github.com/twinj/uuid"
+	"gopkg.in/gomail.v2"
 	"strings"
 	"time"
 )
@@ -26,7 +26,7 @@ func (this *MainController) Login() {
 	fmt.Println("back is", back)
 	if this.Ctx.Input.Method() == "POST" {
 		fmt.Println("es un POST")
-		flash := beego.NewFlash()
+		//flash := beego.NewFlash()
 		email := this.GetString("email")
 		password := this.GetString("password")
 		valid := validation.Validation{}
@@ -51,36 +51,38 @@ func (this *MainController) Login() {
 		o := orm.NewOrm()
 		o.Using("default")
 		user := models.AuthUser{Email: email}
-		err := o.Read(&user, "Email")
-		if err == nil {
-			if user.Reg_key != "" {
-				flash.Error("Account not verified")
+		/*
+			err := o.Read(&user, "Email")
+
+			if err == nil {
+				if user.Reg_key != "" {
+					flash.Error("Account not verified")
+					flash.Store(&this.Controller)
+					return
+				}
+
+				// scan in the password hash/salt
+				fmt.Println("Password to scan:", user.Password)
+				if x.Hash, err = hex.DecodeString(user.Password[:64]); err != nil {
+					fmt.Println("ERROR:", err)
+				}
+				if x.Salt, err = hex.DecodeString(user.Password[64:]); err != nil {
+					fmt.Println("ERROR:", err)
+				}
+				fmt.Println("decoded password is", x)
+			} else {
+				flash.Error("No such user/email")
 				flash.Store(&this.Controller)
 				return
 			}
 
-			// scan in the password hash/salt
-			fmt.Println("Password to scan:", user.Password)
-			if x.Hash, err = hex.DecodeString(user.Password[:64]); err != nil {
-				fmt.Println("ERROR:", err)
+			//******** Compare submitted password with database
+			if !pk.MatchPassword(password, &x) {
+				flash.Error("Bad password")
+				flash.Store(&this.Controller)
+				return
 			}
-			if x.Salt, err = hex.DecodeString(user.Password[64:]); err != nil {
-				fmt.Println("ERROR:", err)
-			}
-			fmt.Println("decoded password is", x)
-		} else {
-			flash.Error("No such user/email")
-			flash.Store(&this.Controller)
-			return
-		}
-
-		//******** Compare submitted password with database
-		if !pk.MatchPassword(password, &x) {
-			flash.Error("Bad password")
-			flash.Store(&this.Controller)
-			return
-		}
-
+		*/
 		//******** Create session and go back to previous page
 		m := make(map[string]interface{})
 		m["first"] = user.First
@@ -403,34 +405,38 @@ func (this *MainController) Forgot() {
 
 func (this *MainController) sendVerification(email, u string, domainname string) bool {
 	link := "http://" + domainname + "/user/verify/" + u
-	host := this.ConfigData.MailHost
-	port := this.ConfigData.MailPort
-	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", this.ConfigData.MailFrom, "Docker Web Console")
-	msg.SetHeader("To", email)
-	msg.SetHeader("Subject", "Account Verification for DockerWebConsole")
-	msg.SetBody("text/html", "To verify your account, please click on the link: <a href=\""+link+
-		"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
-	m := gomail.NewMailer(host, this.ConfigData.MailMailerUser, this.ConfigData.MailMailerPass, port)
-	if err := m.Send(msg); err != nil {
-		return false
+	host := defaultConfig.MailHost
+	port := defaultConfig.MailPort
+
+	m := gomail.NewMessage()
+	m.SetHeader("From", defaultConfig.MailFrom)
+	m.SetHeader("To", email)
+	m.SetHeader("Subject", "Account Verification for DockerWebConsole")
+	m.SetBody("text/html", "To verify your account, please click on the link: <a href=\""+link+"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
+
+	d := gomail.NewPlainDialer(host, port, defaultConfig.MailMailerUser, defaultConfig.MailMailerPass)
+
+	if err := d.DialAndSend(m); err != nil {
+		panic(err)
 	}
 	return true
 }
 
 func (this *MainController) sendRequestReset(email, u string, domainname string) bool {
 	link := "http://" + domainname + "/user/reset/" + u
-	host := this.ConfigData.MailHost
-	port := this.ConfigData.MailPort
-	msg := gomail.NewMessage()
-	msg.SetAddressHeader("From", this.ConfigData.MailFrom, "Docker Web Console")
-	msg.SetHeader("To", email)
-	msg.SetHeader("Subject", "Request Password Reset for DockerWebConsole")
-	msg.SetBody("text/html", "To reset your password, please click on the link: <a href=\""+link+
-		"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
-	m := gomail.NewMailer(host, this.ConfigData.MailMailerUser, this.ConfigData.MailMailerPass, port)
-	if err := m.Send(msg); err != nil {
-		return false
+	host := defaultConfig.MailHost
+	port := defaultConfig.MailPort
+
+	m := gomail.NewMessage()
+	m.SetHeader("From", defaultConfig.MailFrom)
+	m.SetHeader("To", email)
+	m.SetHeader("Subject", "Request Password Reset for DockerWebConsole")
+	m.SetBody("text/html", "To reset your password, please click on the link: <a href=\""+link+"\">"+link+"</a><br><br>Best Regards,<br>DockerWebConsole")
+
+	d := gomail.NewPlainDialer(host, port, defaultConfig.MailMailerUser, defaultConfig.MailMailerPass)
+
+	if err := d.DialAndSend(m); err != nil {
+		panic(err)
 	}
 	return true
 }

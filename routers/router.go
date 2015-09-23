@@ -1,16 +1,13 @@
 package routers
 
 import (
-	"dockerwebconsole/config"
 	"dockerwebconsole/controllers"
 	"github.com/astaxie/beego"
 )
 
 func init() {
 
-	var defaultConfig = config.GetConfig()
-
-	var mainController = &controllers.MainController{ConfigData: defaultConfig}
+	var mainController = &controllers.MainController{}
 
 	beego.Router("/", mainController, "get:Get")
 	beego.Router("/home", mainController)
@@ -19,7 +16,7 @@ func init() {
 	beego.Router("/about", mainController, "post:ContactHandler")
 
 	beego.Router("/hosts", mainController, "get:HomeHandler")
-	beego.Router("/hosts/console/:action", mainController, "get:ConsoleHandler")
+	beego.Router("/hosts/console/:action/:id", mainController, "get:ConsoleHandler")
 
 	beego.Router("/user/login/:back", mainController, "get,post:Login")
 	beego.Router("/user/logout", mainController, "get:Logout")

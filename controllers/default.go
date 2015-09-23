@@ -9,15 +9,16 @@ import (
 
 type MainController struct {
 	beego.Controller
-	ConfigData config.Config
 }
+
+var defaultConfig = config.GetConfig()
 
 var FilterLogin = func(ctx *context.Context) {
 
 	//******** This page requires login
 	sess := ctx.Input.Session("acme")
 	if sess == nil {
-		ctx.Redirect(302, "/user/login/main")
+		ctx.Redirect(302, "/user/login/hosts")
 		return
 	}
 	m := sess.(map[string]interface{})

@@ -1,7 +1,7 @@
 var Service = {
 
 	activeGotty		: function (idContainer){
-						var url = "/hosts/console/intro?id=" + idContainer
+						var url = "/hosts/console/intro/" + idContainer
 
 						$.ajax({
 							dataType: "text",
@@ -20,7 +20,7 @@ var Service = {
 									);
 					},
 	logs		: function (idContainer){
-						var url = "/hosts/console/logs?id=" + idContainer
+						var url = "/hosts/console/logs/" + idContainer
 
 						$.ajax({
 							dataType: "text",
@@ -39,13 +39,17 @@ var Service = {
 									);
 					},
 	command		: function (cmd){
-						var url = "/hosts/console/cmd?command=" + cmd
+						var url = "/hosts/console/cmd/" + cmd
 
 						$.ajax({
 							dataType: "text",
 							type: "GET",
 							url: url,
 						})
+						.always(function(){
+								$('#command').val('')
+						});
+
 						setTimeout(	"window.open('http://localhost:7777','winname','directories=0,titlebar=0,toolbar=0,location=0,status=0,menubar=0,scrollbars=no,resizable=no,width=800,height=400')",
 									2000
 									);

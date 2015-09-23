@@ -91,7 +91,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 						<div class="top-searchbar">
 							<form>
-								<input type="text" /><input type="submit" value="" />
+								<input id="pattern" name="pattern" type="text" /><input type="submit" value="" />
 							</form>
 						</div>
 						<div class="userinfo">
@@ -101,7 +101,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 												<li><img src="/static/images/user-pic.png" title="user-name" /><span>{{.First}}</span></li>
 												<li>[<a href="http://{{.domainname}}/user/logout">Logout</a>|<a href="http://{{.domainname}}/user/profile">Profile</a>]</li>
 										{{else}}
-												[<a href="http://{{.domainname}}/user/login/home">Login</a>]
+												[<a href="http://{{.domainname}}/user/login/hosts">Login</a>]
 										{{end}}
 									</ul>
 							</div>

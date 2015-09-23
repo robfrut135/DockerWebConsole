@@ -12,16 +12,16 @@ import (
 
 // HomeHandler render the main page with read docker containers
 func (this *MainController) HomeHandler() {
-	this.activeContent("index")
+	this.activeContent("hosts")
 
 	containers := make(map[string]core.Container)
 
 	/*
-		To have: -H unix:///var/run/docker.sock -H tcp://0.0.0.0:4243
+		To have: -H unix:	///var/run/docker.sock -H tcp://0.0.0.0:4243
 	*/
 
 	/* Option A */
-	url := "http://" + this.ConfigData.Host + ":4243/containers/json"
+	url := "http://" + defaultConfig.Host + ":4243/containers/json"
 
 	response, err := http.Get(url)
 
@@ -65,15 +65,16 @@ func (this *MainController) HomeHandler() {
 
 // ConsoleHandler run container console for user
 func (this *MainController) ConsoleHandler() {
+	this.activeContent("hosts")
 
 	action := this.Ctx.Input.Param(":action")
+	id := this.Ctx.Input.Param(":id")
 
 	if action == "intro" {
 		c := make(chan bool)
 		go func() {
-			id := this.GetString("id")
-			cmd := this.ConfigData.GottyPath + "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
-			out, err := this.ConfigData.Ssh.Run(cmd)
+			cmd := defaultConfig.GottyPath + "gotty --once -w -p 9999 docker exec -ti " + id + " bash"
+			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out)
 			}
@@ -84,9 +85,8 @@ func (this *MainController) ConsoleHandler() {
 	} else if action == "logs" {
 		c := make(chan bool)
 		go func() {
-			id := this.GetString("id")
-			cmd := this.ConfigData.GottyPath + "gotty --once -p 8888 docker logs -f " + id
-			out, err := this.ConfigData.Ssh.Run(cmd)
+			cmd := defaultConfig.GottyPath + "gotty --once -p 8888 docker logs -f " + id
+			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
 			}
@@ -97,8 +97,8 @@ func (this *MainController) ConsoleHandler() {
 	} else if action == "cmd" {
 		c := make(chan bool)
 		go func() {
-			cmd := this.ConfigData.GottyPath + "gotty --once -w -p 7777 docker " + this.GetString("command")
-			out, err := this.ConfigData.Ssh.Run(cmd)
+			cmd := defaultConfig.GottyPath + "gotty --once -w -p 7777 docker " + id
+			out, err := defaultConfig.Ssh.Run(cmd)
 			if err != nil {
 				panic("Can't run remote command: " + err.Error() + out + cmd)
 			}

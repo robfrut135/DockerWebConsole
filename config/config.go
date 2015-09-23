@@ -1,7 +1,7 @@
 package config
 
 import (
-	"dockerwebconsole_v0/myssh"
+	"dockerwebconsole/myssh"
 	"flag"
 )
 
@@ -23,15 +23,15 @@ var defaultConfig = Config{
 	Host: "localhost",
 	Ssh: &myssh.MakeConfig{
 		User:     "root",
-		Password: "XXXXXXX",
+		Password: "XXXXXX",
 		Server:   "localhost",
 		Port:     "22",
 	},
 	MailHost:       "smtp.gmail.com",
-	MailPort:       587,
+	MailPort:       465,
 	MailFrom:       "robfrut@gmail.com",
 	MailMailerUser: "robfrut@gmail.com",
-	MailMailerPass: "135Transceptor135",
+	MailMailerPass: "YYYYYYYY",
 	GottyPath:      "/home/roberto/GoLangWorkspace/bin/",
 }
 
