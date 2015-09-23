@@ -52,59 +52,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<!---//End-click-drop-down-menu----->
 	</head>
 	<body>
-
-				<a id="demo01" href="#animatedModal"></a>
-			    <div id="animatedModal">
-			        <div class="close-animatedModal">
-			        </div>
-			        <div class="modal-content">
-			            <center>Loading administration console...</center>
-			        </div>
-			    </div>
 				<!---start-wrap---->
 					<!---start-header---->
 					<div class="header">
 						<div class="wrap">
 						<div class="logo">
 							<a href="/home"><img src="/static/images/docker-logo.png" title="Docker Web Console" width="154px" height="52px" /></a>
-						</div>
-						<div class="nav-icon">
-							 <a href="#" class="right_bt" id="activator"><span></span> </a>
-						</div>
-						 <div class="box" id="box">
-							 <div class="box_content">
-								<div class="box_content_center">
-								 	<div class="form_content">
-										<div class="menu_box_list">
-											<ul>
-												<li><a href="/home"><span>home</span></a></li>
-												<li><a href="/hosts"><span>Hosts</span></a></li>
-												<li><a href="/notice"><span>Blog</span></a></li>
-												<li><a href="/about"><span>About</span></a></li>
-												<div class="clear"> </div>
-											</ul>
-										</div>
-										<a class="boxclose" id="boxclose"> <span> </span></a>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="top-searchbar">
-							{{if .InSession}}
-								<form>
-									<input id="pattern" name="pattern" type="text" placeholder="Search in your labels" /><input type="submit" value="" />
-								</form>
-							{{end}}
-						</div>
+						</div>									 
 						<div class="userinfo">
 							<div class="user">
 									<ul>
-										{{if .InSession}}
-												<li><img src="/static/images/user-pic.png" title="user-name" /><span>{{.First}}</span></li>
-												<li>[ <a href="http://{{.domainname}}/user/logout">Logout</a> | <a href="http://{{.domainname}}/user/profile">Profile</a> ]</li>
-										{{else}}
-												<li>[ <a href="http://{{.domainname}}/user/login/hosts">Login</a> ]</li>
-										{{end}}
+										<li><span>Administrator</span></li>
 									</ul>
 							</div>
 						</div>

@@ -22,7 +22,7 @@ type AdminController struct {
 func (this *AdminController) activeAdminContent(view string) {
 	this.Layout = "admin-layout.tpl"
 	this.LayoutSections = make(map[string]string)
-	this.LayoutSections["Header"] = "header.tpl"
+	this.LayoutSections["Header"] = "appadmin/header.tpl"
 	this.LayoutSections["Footer"] = "footer.tpl"
 	this.TplNames = view + ".tpl"
 	this.Data["domainname"] = "localhost:8080"
