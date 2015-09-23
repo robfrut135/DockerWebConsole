@@ -4,9 +4,9 @@
 
 Uses
 - beego framweork
-- custom managment users from https://github.com/horrido/acme3
+- custom user management inherited from https://github.com/horrido/acme3
 - styles by W3layouts
-- gotty
+- gotty https://github.com/yudai/gotty
 
 Functions
 - show containers in host
