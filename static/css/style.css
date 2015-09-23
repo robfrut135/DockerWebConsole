@@ -98,7 +98,7 @@ body{
 	display: inline-block;
 	border: none;
 	top: 12px;
-	right: -22px;
+	right: 5px;
 	outline:none;
 	cursor:pointer;
 }
@@ -1206,7 +1206,7 @@ span.mail a:hover{
 
 
 .modal-content center {
-	margin-top: 200px;
+	margin-top: 200px !important;
 }
 
 .main-searchbar {
@@ -1253,8 +1253,8 @@ span.mail a:hover{
 	width: 26px;
 	display: inline-block;
 	border: none;
-	top: 39px;
-	right: -22px;
+	top: 43px;
+	right: 5px;
 	outline:none;
 	cursor:pointer;
 }

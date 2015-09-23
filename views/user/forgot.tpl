@@ -5,16 +5,15 @@
 <h3>{{.flash.error}}</h3>
 <br>
 {{end}}
+
 <form method="POST">
-<table>
-<tr>
-    <td>Email address: {{if .Errors.email}}{{.Errors.email}}{{end}}</td>
-    <td><input name="email" type="text" autofocus /></td>
-</tr>
-<tr><td>&nbsp;</td></tr>
-<tr>
-    <td>&nbsp;</td><td><input type="submit" value="Request reset" /></td>
-</tr>
-</table>
+  <div class="form-group">
+      {{if .Errors.email}}{{.Errors.email}}{{end}}
+      <label for="email">Email address:</label>
+      <input name="email" type="text" autofocus class="form-control"/>
+  </div>
+
+  <input type="submit" value="Request reset" class="btn btn-default" /></td>
+
 </form>
 </div>

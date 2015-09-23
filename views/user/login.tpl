@@ -1,6 +1,3 @@
-
-    <!-- ToDo: <link rel="stylesheet" href="/static/css/login.css"> -->
-
     <div class="wrapper">
 
   		<div class="container">
@@ -13,12 +10,16 @@
         {{end}}
 
   			<form id="user-data" class="form" method="post">
-          {{if .Errors.email}}{{.Errors.email}}{{end}}
-  				<input id="email" name="email" type="text" placeholder="Your email">
-          {{if .Errors.password}}{{.Errors.password}}{{end}}
-  				<input id="password" name="password" type="password" placeholder="Your password">
+          <div class="form-group">
+            {{if .Errors.email}}{{.Errors.email}}{{end}}
+            <label for="email">Email address</label>
+    				<input id="email" name="email" type="text" class="form-control" placeholder="Your email">
 
-  				<button type="submit" id="login-button">Login</button>
+            {{if .Errors.password}}{{.Errors.password}}{{end}}
+            <label for="password">Password</label>
+            <input id="password" name="password" class="form-control" type="password" placeholder="Your password">
+          </div>
+  				<button type="submit" id="login-button" class="btn btn-default">Login</button>
 
           <div>
             <br>

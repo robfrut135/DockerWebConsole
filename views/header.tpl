@@ -10,6 +10,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		<title>Docker Web Console | Home :: w3layouts</title>
 		<link href="/static/css/style.css" rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="/static/images/docker.png" />
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -58,7 +63,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			        <div class="close-animatedModal">
 			        </div>
 			        <div class="modal-content">
-			            <center>Loading administration console...</center>
+			            <h1><center>Loading administration console...</center></h1>
 			        </div>
 			    </div>
 				<!---start-wrap---->

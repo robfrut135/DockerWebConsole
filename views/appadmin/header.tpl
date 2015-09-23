@@ -8,10 +8,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html>
 	<head>
 		<title>Docker Web Console | Home :: w3layouts</title>
+
 		<link href="/static/css/style.css" rel='stylesheet' type='text/css' />
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="shortcut icon" type="image/x-icon" href="/static/images/docker.png" />
+
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
 		<!----webfonts---->
@@ -58,11 +64,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<div class="wrap">
 						<div class="logo">
 							<a href="/home"><img src="/static/images/docker-logo.png" title="Docker Web Console" width="154px" height="52px" /></a>
-						</div>									 
+						</div>
 						<div class="userinfo">
 							<div class="user">
 									<ul>
-										<li><span>Administrator</span></li>
+										<li><h3>Administrator</h3></li>
 									</ul>
 							</div>
 						</div>
