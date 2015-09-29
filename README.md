@@ -8,7 +8,7 @@ Uses
 - styles by W3layouts
 - gotty https://github.com/yudai/gotty
 
-Functions
+Features
 - show containers in host
 - open console in your browser
 - on close, close session on container
@@ -23,13 +23,30 @@ ToDo:
 - users control based on Labels
 
 ### Config
-TODO
 
-### Build
-TODO
+Edit [!(config/config.go)](config/config.go)
 
-### Run
-TODO
+    var defaultConfig = Config{
+    	Addr: flag.Bool("addr", false, "find open address and print to final-port.txt"),
+    	Host: "localhost",
+    	Ssh: &myssh.MakeConfig{
+    		User:     "root",
+    		Password: "XXXXXXX",
+    		Server:   "localhost",
+    		Port:     "22",
+    	},
+    	MailHost:       "smtp.gmail.com",
+    	MailPort:       465,
+    	MailFrom:       "robfrut@gmail.com",
+    	MailMailerUser: "robfrut@gmail.com",
+    	MailMailerPass: "YYYYYYYYYYYYY",
+    	GottyPath:      "/Path/to/your/gotty/",
+    }
+
+### Build and run
+
+    bee run
+
 
 ### Demo on Fedora21 - current version
 TODO
