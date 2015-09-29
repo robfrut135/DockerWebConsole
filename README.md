@@ -24,7 +24,7 @@ ToDo:
 
 ### Config
 
-Edit [!(config/config.go)](config/config.go)
+Edit [config/config.go](config/config.go)
 
     var defaultConfig = Config{
     	Addr: flag.Bool("addr", false, "find open address and print to final-port.txt"),
